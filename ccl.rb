@@ -18,9 +18,17 @@
 #   * [KEYWORD]: [DESCRIPTION]
 # The filtered lines are sorted and written to standard out.
 
+require 'optparse'
+
 # Returns the grep string that matches changelog entries.
 def pattern
 	'\s*\*\s+[^:]+:\s'
+end
+
+def is_git_repository(dir = nil)
+	dir = Dir.pwd if dir.nil?
+	system("git status > /dev/null 2>&1")
+	$? == 0
 end
 
 # Removes common indentation from an array of strings
@@ -40,6 +48,16 @@ class Array
 	end
 end
 
+# Returns the name for the recent changes; this may be
+# a version number if one is given on the command line.
+def get_recent_changes_heading
+	if ARGV.empty?
+		"Current version"
+	else
+		ARGV[0]
+	end
+end
+
 # Returns an array of lines describing changes between two 
 # git commits.
 def get_changes(from, to)
@@ -56,7 +74,7 @@ end
 # from the commit messages, and only unique entries are used.
 def get_version_info(previous_version, desired_version)
 	tag = `git tag -l -n99 #{desired_version}`.rstrip
-	tag = "Current version" if tag.length == 0
+	tag = get_recent_changes_heading if tag.length == 0
 	tag = tag.split("\n")
 
 	tag_changelog = tag.select do |line|
@@ -96,9 +114,44 @@ def get_tags
 	tags.reverse
 end
 
+# Returns the most recent tag in the git repository,
+# or the sha1 of the initial commit if there is no tag.
+def get_recent_tag
+	tags = get_tags
+	if tags.length > 2
+		get_tags[1]
+	else
+		get_tags[0]
+	end
+end
+
 def main
-	get_tags.each_cons(2) do |current_tag, previous_tag|
-		puts get_version_info(previous_tag, current_tag)
+	options = {}
+	options[:working_dir] = Dir.pwd
+	option_parser = OptionParser.new do |opts|
+		executable_name = File.basename($PROGRAM_NAME)
+		opts.banner = "Create changelog from log entries in git log\n"
+		opts.banner += "Usage: #{executable_name} [options] [current_version]"
+		opts.on("-r", "--recent",
+						"Include only most recent changes") do 
+			options[:recent] = true
+		end
+		opts.on("-d WORKING_DIR", "--dir WORKING_DIR",
+					 "Use alternate working directory") do |dir|
+			options[:working_dir] = dir
+		end
+	end
+	option_parser.parse!
+
+	Dir.chdir(options[:working_dir]) do
+		abort "FATAL: Not a git repository." unless is_git_repository
+		if options[:recent]
+			puts get_changes(get_recent_tag, "HEAD")
+		else
+			get_tags.each_cons(2) do |current_tag, previous_tag|
+				puts get_version_info(previous_tag, current_tag)
+			end
+		end
 	end
 end
 
