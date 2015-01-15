@@ -86,6 +86,7 @@ def get_version_info(previous_version, desired_version)
 	end
 	
 	tag = tag.remove_indent.insert(1, "=" * 72 + "\n")
+	tag[0] = tag[0].split(' ')[1..-1].join(' ')
 
 	changelog = get_changes(previous_version, desired_version)
 	changelog = changelog.concat(tag_changelog).uniq
