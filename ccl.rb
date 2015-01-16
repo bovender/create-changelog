@@ -74,7 +74,8 @@ end
 # from the commit messages, and only unique entries are used.
 def get_version_info(previous_version, desired_version)
 	tag = `git tag -l -n99 #{desired_version}`.rstrip
-	tag = get_recent_changes_heading if tag.length == 0
+	custom_heading = tag.length == 0
+	tag = get_recent_changes_heading if custom_heading
 	tag = tag.split("\n")
 
 	tag_changelog = tag.select do |line|
@@ -86,7 +87,7 @@ def get_version_info(previous_version, desired_version)
 	end
 	
 	tag = tag.remove_indent.insert(1, "=" * 72 + "\n")
-	tag[0] = tag[0].split(' ')[1..-1].join(' ')
+	tag[0] = tag[0].split(' ')[1..-1].join(' ') unless custom_heading
 
 	changelog = get_changes(previous_version, desired_version)
 	changelog = changelog.concat(tag_changelog).uniq
