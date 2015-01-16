@@ -108,11 +108,11 @@ end
 # Returns an array of tag names surrounded by HEAD
 # at the top and the sha1 of the first commit at the
 # bottom.
-def get_tags
+def get_tags(no_recent = false)
 	tags = []
 	tags <<  get_initial_commit
 	tags += `git tag`.split("\n").map { |s| s.rstrip }
-	tags << "HEAD"
+	tags << "HEAD" unless no_recent
 	tags.reverse
 end
 
@@ -136,7 +136,13 @@ def main
 		opts.banner += "Usage: #{executable_name} [options] [current_version]"
 		opts.on("-r", "--recent",
 						"Include only most recent changes") do 
+			abort "FATAL: Cannot combine --recent and --no-recent" if options[:no_recent] 
 			options[:recent] = true
+		end
+		opts.on("-n", "--no-recent",
+						"Exclude the most recent changes (from untagged commits)") do 
+			abort "FATAL: Cannot combine --recent and --no-recent" if options[:recent] 
+			options[:no_recent] = true
 		end
 		opts.on("-d WORKING_DIR", "--dir WORKING_DIR",
 					 "Use alternate working directory") do |dir|
@@ -150,7 +156,7 @@ def main
 		if options[:recent]
 			puts get_changes(get_recent_tag, "HEAD")
 		else
-			get_tags.each_cons(2) do |current_tag, previous_tag|
+			get_tags(options[:no_recent]).each_cons(2) do |current_tag, previous_tag|
 				puts get_version_info(previous_tag, current_tag)
 			end
 		end
