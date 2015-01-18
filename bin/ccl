@@ -19,7 +19,7 @@
 # The filtered lines are sorted and written to standard out.
 
 require 'optparse'
-require_relative '../lib/changelog.rb'
+require_relative '../lib/create_changelog.rb'
 require_relative '../lib/git.rb'
 require_relative '../lib/version.rb'
 
