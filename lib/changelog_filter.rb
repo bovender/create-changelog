@@ -39,7 +39,7 @@ class ChangelogFilter
 
 	# Returns the grep string that matches changelog entries.
 	def self.pattern
-		'\s*\*\s+[^:]+:\s'
+		'\s*[*-]\s+[^:]+:\s'
 	end
 
 	# An array of changelog entries.
