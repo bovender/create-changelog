@@ -45,6 +45,10 @@ def main
 					 "Use alternate working directory") do |dir|
 			working_dir = dir
 		end
+		opts.on("-v", "--version", "Print version information and exit.") do
+			puts CreateChangelog::VERSION
+			exit
+		end
 	end
 	option_parser.parse!
 
