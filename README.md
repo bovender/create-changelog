@@ -1,3 +1,5 @@
+[![Gem Version](https://badge.fury.io/rb/create_changelog.svg)](http://badge.fury.io/rb/create_changelog)
+
 create-changelog
 ================
 
@@ -63,7 +65,7 @@ changelog entries.
 To generate a complete change log, simply run the tool in the directory
 of the git repository, or indicate a working directory:
 
-	ccl.rb -d /home/me/my/repository
+	ccl -d /home/me/my/repository
 
 The output will be in markdown format. If you wish, you can further
 process it using tools like [pandoc][] for example. Of course, it is
@@ -76,25 +78,25 @@ case, the tool will use "Unpublished changes" as the heading for the
 latest changes. To use the version number that you are about to use in
 the tag, call the tool with an optional argument:
 
-	ccl.rb 7.0.0-alpha.4
+	ccl 7.0.0-alpha.4
 
 Be aware that currently, the date of the most recent commit (that HEAD
 points to) will be appended to the heading.
 
 To exclude recent changes that were logged since the last tag:
 
-	ccl.rb --no-recent
-	ccl.rb -n
+	ccl --no-recent
+	ccl -n
 
 To just see the (undecorated) changelog entries since the last tag, use:
 
-	ccl.rb --recent
-	ccl.rb -r
+	ccl --recent
+	ccl -r
 
 This can be handy if you want to add a log of recent changes to your tag
 annotation. For example, using the Vim text editor, issue:
 
-	:r!ccl.rb -r
+	:r!ccl -r
 
 The tool will make sure that no changelog lines are duplicated.
 
