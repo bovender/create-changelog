@@ -41,13 +41,20 @@ class Git
 		`git log #{from_commit}..#{to_commit} -E --grep='#{filter}' --format=%b`
 	end
 
-	@@tags = TagList.new
+	@@tags = nil
+
+	# Ensures lazy loading of the tag list to enable calling code
+	# to change the working directory first.
+	def self.tags
+		@@tags = TagList.new unless @@tags
+		@@tags
+	end
 
 	# Tests if the given tag exists and fails if it doesn't
 	def self.test_tag(tag)
-		fail "Invalid tag: #{tag}" unless @@tags.list.include?(tag)
+		fail "Invalid tag: #{tag}" unless tags.list.include?(tag)
 	end
-	private_class_method :test_tag
+	private_class_method :test_tag, :tags
 end
 
 # vim: nospell

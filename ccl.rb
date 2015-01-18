@@ -45,7 +45,7 @@ def main
 		end
 		opts.on("-d WORKING_DIR", "--dir WORKING_DIR",
 					 "Use alternate working directory") do |dir|
-			options[:working_dir] = dir
+			working_dir = dir
 		end
 	end
 	option_parser.parse!
