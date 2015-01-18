@@ -1,0 +1,68 @@
+#!/usr/bin/env ruby
+# Create-changelog
+# Copyright 2015 Daniel Kraus
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Filters the git log of the repository in the current directory
+# for unique lines that match the pattern
+#   * [KEYWORD]: [DESCRIPTION]
+# The filtered lines are sorted and written to standard out.
+
+require 'optparse'
+require_relative 'include/changelog.rb'
+require_relative 'include/git.rb'
+
+# Semantic version
+$VERSION = '1.0.0'
+
+def main
+	options = {}
+	working_dir = Dir.pwd
+	option_parser = OptionParser.new do |opts|
+		exe_name = File.basename($PROGRAM_NAME)
+		opts.banner = "#{exe_name} version #{$VERSION}\n"
+		opts.banner += "Creates changelog from log entries in git log\n"
+		opts.banner += "Usage: #{exe_name} [options] [current_version]"
+		opts.on("-r", "--recent",
+						"Include only most recent changes") do 
+			abort "FATAL: Cannot combine --recent and --no-recent" if options[:no_recent] 
+			options[:only_recent] = true
+		end
+		opts.on("-n", "--no-recent",
+						"Exclude the most recent changes (from untagged commits)") do 
+			abort "FATAL: Cannot combine --recent and --no-recent" if options[:recent] 
+			options[:no_recent] = true
+		end
+		opts.on("-d WORKING_DIR", "--dir WORKING_DIR",
+					 "Use alternate working directory") do |dir|
+			working_dir = dir
+		end
+	end
+	option_parser.parse!
+
+	Dir.chdir(working_dir) do
+		abort "FATAL: Not a git repository." unless Git.is_git_repository?
+
+		change_log = Changelog.new
+		change_log.recent_changes_heading = ARGV[0] unless ARGV.empty?
+		if options[:only_recent]
+			puts change_log.generate_recent
+		else
+			puts change_log.generate(options[:no_recent])
+		end
+	end
+end
+
+main
+
+# vim: nospell
