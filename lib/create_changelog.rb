@@ -38,6 +38,9 @@ class Changelog
 	# Returns a simple, undecorated list of changelog entries
 	# since the most recent tag.
 	def generate_recent
+		tags = TagList.new
+		log = CommitChangelog.new(tags.list[0], tags.list[1])
+		log.changelog
 	end
 
 	private

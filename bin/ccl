@@ -28,25 +28,31 @@ def main
 	working_dir = Dir.pwd
 	option_parser = OptionParser.new do |opts|
 		exe_name = File.basename($PROGRAM_NAME)
-		opts.banner = "#{exe_name} version #{CreateChangelog::VERSION}\n"
+		opts.banner = "create_changelog version #{CreateChangelog::VERSION}\n"
 		opts.banner += "Creates changelog from log entries in git log\n"
 		opts.banner += "Usage: #{exe_name} [options] [current_version]"
 		opts.on("-r", "--recent",
 						"Include only most recent changes") do 
-			abort "FATAL: Cannot combine --recent and --no-recent" if options[:no_recent] 
 			options[:only_recent] = true
 		end
 		opts.on("-n", "--no-recent",
 						"Exclude the most recent changes (from untagged commits)") do 
-			abort "FATAL: Cannot combine --recent and --no-recent" if options[:recent] 
 			options[:no_recent] = true
 		end
 		opts.on("-d WORKING_DIR", "--dir WORKING_DIR",
 					 "Use alternate working directory") do |dir|
 			working_dir = dir
 		end
+		opts.on("-v", "--version", "Print version information and exit.") do
+			puts CreateChangelog::VERSION
+			exit
+		end
 	end
 	option_parser.parse!
+
+	if options[:no_recent] and options[:only_recent]
+			abort "FATAL: Cannot combine --recent and --no-recent"
+	end
 
 	Dir.chdir(working_dir) do
 		abort "FATAL: Not a git repository." unless Git.is_git_repository?
