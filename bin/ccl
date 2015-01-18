@@ -28,7 +28,7 @@ def main
 	working_dir = Dir.pwd
 	option_parser = OptionParser.new do |opts|
 		exe_name = File.basename($PROGRAM_NAME)
-		opts.banner = "#{exe_name} version #{CreateChangelog::VERSION}\n"
+		opts.banner = "create_changelog version #{CreateChangelog::VERSION}\n"
 		opts.banner += "Creates changelog from log entries in git log\n"
 		opts.banner += "Usage: #{exe_name} [options] [current_version]"
 		opts.on("-r", "--recent",
