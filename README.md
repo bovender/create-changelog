@@ -112,12 +112,17 @@ Live example
 
 <http://xltoolbox.sf.net/changelog-ng>
 
+... or of course [CHANGELOG.md][] in this repository.
+
 
 Code
 ----
 
 To understand the code, you can run `rdoc` in the repository's
 directory. The resulting `doc` subdirectory will be ignored by Git.
+
+Alternatively, you may browse
+<http://www.rubydoc.info/github/bovender/create-changelog>.
 
 
 License
@@ -142,5 +147,6 @@ License
 [pandoc]: http://johnmacfarlane.net/pandoc
 [nanoc]: http://nanoc.ws
 [kacl]: http://keepachangelog.com
+[CHANGELOG.md]: CHANGELOG.md
 
 <!-- vim: set tw=72 : -->
