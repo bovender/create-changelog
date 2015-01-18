@@ -22,13 +22,17 @@ require 'optparse'
 require_relative 'include/changelog.rb'
 require_relative 'include/git.rb'
 
+# Semantic version
+$VERSION = '1.0.0'
+
 def main
 	options = {}
 	working_dir = Dir.pwd
 	option_parser = OptionParser.new do |opts|
-		executable_name = File.basename($PROGRAM_NAME)
-		opts.banner = "Create changelog from log entries in git log\n"
-		opts.banner += "Usage: #{executable_name} [options] [current_version]"
+		exe_name = File.basename($PROGRAM_NAME)
+		opts.banner = "#{exe_name} version #{$VERSION}\n"
+		opts.banner += "Creates changelog from log entries in git log\n"
+		opts.banner += "Usage: #{exe_name} [options] [current_version]"
 		opts.on("-r", "--recent",
 						"Include only most recent changes") do 
 			abort "FATAL: Cannot combine --recent and --no-recent" if options[:no_recent] 
