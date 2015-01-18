@@ -19,18 +19,16 @@
 # The filtered lines are sorted and written to standard out.
 
 require 'optparse'
-require_relative 'include/changelog.rb'
-require_relative 'include/git.rb'
-
-# Semantic version
-$VERSION = '1.0.0'
+require_relative '../lib/changelog.rb'
+require_relative '../lib/git.rb'
+require_relative '../lib/version.rb'
 
 def main
 	options = {}
 	working_dir = Dir.pwd
 	option_parser = OptionParser.new do |opts|
 		exe_name = File.basename($PROGRAM_NAME)
-		opts.banner = "#{exe_name} version #{$VERSION}\n"
+		opts.banner = "#{exe_name} version #{CreateChangelog::VERSION}\n"
 		opts.banner += "Creates changelog from log entries in git log\n"
 		opts.banner += "Usage: #{exe_name} [options] [current_version]"
 		opts.on("-r", "--recent",
