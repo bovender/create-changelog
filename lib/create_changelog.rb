@@ -59,13 +59,14 @@ class Changelog
 
 		output = String.new
 		tag.heading = @recent_changes_heading unless tag.heading
-		if tag.heading
+		if tag.heading and (tag.text or combined_changelog)
 			output << tag.heading + " (#{tag.date})\n"
 			output << "=" * 72 + "\n"
 		end
-		output << tag.text.join("\n") + "\n" if tag.text
+		output << tag.text.join("\n") if tag.text
+		output << "\n" if tag.heading or tag.text
 		output << combined_changelog.join("\n") + "\n" if combined_changelog
-		output << end_separator if tag.heading or tag.text or combined_changelog
+		output << end_separator if tag.text or combined_changelog
 		output
 	end
 

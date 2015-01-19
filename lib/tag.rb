@@ -42,7 +42,7 @@ class Tag
 			@heading = annotation.shift
 			@heading = @heading.split(' ')[1..-1].join(' ') if @heading
 			filter = ChangelogFilter.FromArray(annotation)
-			@text = filter.other_text.remove_indent
+			@text = filter.other_text.remove_indent if filter.other_text
 			@changelog = filter.changelog
 		end
 	end
