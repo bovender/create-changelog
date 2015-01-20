@@ -47,6 +47,12 @@ class Git
 		`git log #{from_commit}..#{to_commit} -E --grep='#{filter}' --format=%b`
 	end
 
+	# Retrieves one commit message and filters it
+	# Todo: Armor this against code injection!
+	def self.get_filtered_message(commit, filter)
+		`git log #{commit} -E --grep='#{filter}' --format=%b`
+	end
+
 	@@tags = nil
 
 	# Ensures lazy loading of the tag list to enable calling code

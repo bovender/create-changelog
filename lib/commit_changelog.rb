@@ -26,6 +26,13 @@ class CommitChangelog
 		filter = ChangelogFilter.FromString(messages)
 		@changelog = filter.changelog
 	end
+
+	# Adds changelog information contained in a specific commit message.
+	def add_commit(commit)
+		pattern = ChangelogFilter.pattern
+		filtered_text = Git.get_filtered_message(commit, pattern)
+		@changelog.concat(filtered_text.split("\n")) if filtered_text
+	end
 end
 
 # vim: nospell
