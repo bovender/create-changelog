@@ -32,7 +32,7 @@ class Changelog
 		tags.list.each_cons(2) do |current_tag, previous_tag|
 			output << generate_for(current_tag, previous_tag)
 		end
-		output
+		output.length > 0 ? output : nil
 	end
 
 	# Returns a simple, undecorated list of changelog entries

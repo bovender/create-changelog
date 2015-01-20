@@ -23,6 +23,12 @@ class Git
 		$? == 0
 	end
 
+	# Determines if the repository in the current directory is empty.
+	def self.is_empty_repository?
+		`git show HEAD > /dev/null 2>&1`
+		$? != 0
+	end
+
 	# Retrieves the first 99 lines of the annotation of a tag.
 	def self.get_tag_annotation(tag)
 		test_tag tag
