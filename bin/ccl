@@ -65,7 +65,7 @@ def main
 				puts output if output
 			else
 				output = change_log.generate(options[:no_recent])
-				puts output if output
+				puts output.rstrip if output
 			end
 		end
 	end
