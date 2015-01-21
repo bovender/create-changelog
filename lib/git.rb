@@ -23,6 +23,12 @@ class Git
 		$? == 0
 	end
 
+	# Determines if the repository in the current directory is empty.
+	def self.is_empty_repository?
+		`git show HEAD > /dev/null 2>&1`
+		$? != 0
+	end
+
 	# Retrieves the first 99 lines of the annotation of a tag.
 	def self.get_tag_annotation(tag)
 		test_tag tag
@@ -39,6 +45,12 @@ class Git
 	# Todo: Armor this against code injection!
 	def self.get_filtered_messages(from_commit, to_commit, filter)
 		`git log #{from_commit}..#{to_commit} -E --grep='#{filter}' --format=%b`
+	end
+
+	# Retrieves one commit message and filters it
+	# Todo: Armor this against code injection!
+	def self.get_filtered_message(commit, filter)
+		`git log #{commit} -E --grep='#{filter}' --format=%b`
 	end
 
 	@@tags = nil

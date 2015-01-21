@@ -57,13 +57,16 @@ def main
 	Dir.chdir(working_dir) do
 		abort "FATAL: Not a git repository." unless Git.is_git_repository?
 
-		change_log = Changelog.new
-		change_log.recent_changes_heading = ARGV[0] unless ARGV.empty?
-		if options[:only_recent]
-			output = change_log.generate_recent
-			puts output if output
-		else
-			puts change_log.generate(options[:no_recent])
+		unless Git.is_empty_repository?
+			change_log = Changelog.new
+			change_log.recent_changes_heading = ARGV[0] unless ARGV.empty?
+			if options[:only_recent]
+				output = change_log.generate_recent
+				puts output if output
+			else
+				output = change_log.generate(options[:no_recent])
+				puts output if output
+			end
 		end
 	end
 end

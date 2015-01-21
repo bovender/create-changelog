@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
 #{s.name} version #{s.version} has been installed.
 For usage information, type #{s.executables[0]} -h
 EOF
+	s.add_development_dependency('aruba')
 end
 
 # vim: nospell

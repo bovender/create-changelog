@@ -24,22 +24,30 @@ class Changelog
 		@recent_changes_heading = "Unpublished changes"
 	end
 
+	@@tags = nil
+
 	# Generates a decorated changelog.
 	def generate(exclude_recent = false)
 		# Traverse tags
-		tags = TagList.new(!exclude_recent)
+		@@tags = TagList.new(!exclude_recent)
 		output = String.new
-		tags.list.each_cons(2) do |current_tag, previous_tag|
+		@@tags.list.each_cons(2) do |current_tag, previous_tag|
 			output << generate_for(current_tag, previous_tag)
 		end
-		output
+		output.length > 0 ? output : nil
 	end
 
 	# Returns a simple, undecorated list of changelog entries
 	# since the most recent tag.
 	def generate_recent
-		tags = TagList.new
-		log = CommitChangelog.new(tags.list[0], tags.list[1])
+		@@tags = TagList.new
+		log = CommitChangelog.new(@@tags.list[0], @@tags.list[1])
+		# Explicitly add initial commit if there is no tag yet
+		# This is necessary because HEAD..OTHER_COMMIT does not include
+		# OTHER_COMMIT's message, which is the desired behavior if
+		# OTHER_COMMIT is a tag for a previous version, but undesired
+		# if OTHER_COMMIT is the initial commit of the repository.
+		log.add_commit @@tags.list[1] if @@tags.list.length == 2
 		log.changelog
 	end
 
@@ -48,6 +56,9 @@ class Changelog
 	def generate_for(current_tag, previous_tag)
 		tag = Tag.new(current_tag)
 		commit_changelog = CommitChangelog.new(current_tag, previous_tag)
+
+		# If previous_tag is the initial commit, make sure to include its message
+		commit_changelog.add_commit previous_tag if previous_tag == @@tags.list[-1]
 
 		# Combine changelog entries from tag annotation and commit messages
 		if tag.changelog
