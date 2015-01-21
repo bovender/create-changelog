@@ -32,8 +32,12 @@ class CommitChangelog
 		pattern = ChangelogFilter.pattern
 		filtered_text = Git.get_filtered_message(commit, pattern)
 		if filtered_text
-			filtered_lines = filtered_text.split("\n")
-			@changelog ?  @changelog.concat(filtered_lines) : filtered_lines
+			filtered_lines = filtered_text.split("\n").uniq
+			if @changelog
+				@changelog = @changelog.concat(filtered_lines).uniq
+			else
+				@changelog = filtered_lines
+			end
 		end
 	end
 end

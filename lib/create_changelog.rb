@@ -42,6 +42,12 @@ class Changelog
 	def generate_recent
 		@@tags = TagList.new
 		log = CommitChangelog.new(@@tags.list[0], @@tags.list[1])
+		# Explicitly add initial commit if there is no tag yet
+		# This is necessary because HEAD..OTHER_COMMIT does not include
+		# OTHER_COMMIT's message, which is the desired behavior if
+		# OTHER_COMMIT is a tag for a previous version, but undesired
+		# if OTHER_COMMIT is the initial commit of the repository.
+		log.add_commit @@tags.list[1] if @@tags.list.length == 2
 		log.changelog
 	end
 
