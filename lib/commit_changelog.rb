@@ -31,7 +31,10 @@ class CommitChangelog
 	def add_commit(commit)
 		pattern = ChangelogFilter.pattern
 		filtered_text = Git.get_filtered_message(commit, pattern)
-		@changelog.concat(filtered_text.split("\n")) if filtered_text
+		if filtered_text
+			filtered_lines = filtered_text.split("\n")
+			@changelog ?  @changelog.concat(filtered_lines) : filtered_lines
+		end
 	end
 end
 

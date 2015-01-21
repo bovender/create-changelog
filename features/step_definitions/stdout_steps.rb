@@ -1,9 +1,7 @@
 Then(/^the stdout should contain 1 line starting with "([^"]*)"$/) do |s|
-	expected = "(^#{s}.*\n){1}"
-	assert_matching_output(expected, all_output)
+	assert_lines_starting_with all_stdout, 1, s
 end
 
 Then(/^the stdout should contain (\d+) lines starting with "([^"]*)"$/) do |n, s|
-	expected = "(^#{s}.*\n){#{n}}"
-	assert_matching_output(expected, all_output)
+	assert_lines_starting_with all_stdout, n, s
 end

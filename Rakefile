@@ -8,7 +8,7 @@ Rake::TestTask.new do |t|
 end
 
 Cucumber::Rake::Task.new(:features) do |t|
-	t.cucumber_opts = "features --format pretty -x"
+	t.cucumber_opts = "features --format pretty --no-source"
 	t.fork = false
 end
 
