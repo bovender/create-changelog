@@ -17,6 +17,11 @@ Gem::Specification.new do |s|
 	s.homepage     = "https://github.com/bovender/create-changelog"
 	s.license      = "Apache License version 2"
 	s.platform     = Gem::Platform::RUBY
+	s.post_install_message = <<EOF
+#{s.name} version #{s.version} has been installed.
+For usage information, type #{s.executables[0]} -h
+EOF
+	s.add_development_dependency('aruba')
 end
 
 # vim: nospell

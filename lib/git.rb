@@ -17,19 +17,34 @@ require_relative 'tag_list'
 class Git
 
 	# Determines whether the (current) directory is a git repository
+	#
+	# @param [String] dir
+	#   Directory to check; if nil, uses the current directory.
+	#
+	# @return [bool]
+	#   True if the directory is a Git repository, false if not.
 	def self.is_git_repository?(dir = nil)
 		dir = Dir.pwd if dir.nil?
 		system("git status > /dev/null 2>&1")
 		$? == 0
 	end
 
+	# Determines if the repository in the current directory is empty.
+	#
+	def self.is_empty_repository?
+		`git show HEAD > /dev/null 2>&1`
+		$? != 0
+	end
+
 	# Retrieves the first 99 lines of the annotation of a tag.
+	#
 	def self.get_tag_annotation(tag)
 		test_tag tag
 		`git tag -l -n99 #{tag}`.rstrip
 	end
 
-	# Retrieves the date of a tag
+	# Retrieves the author date of a tag
+	#
 	def self.get_tag_date(tag)
 		test_tag tag
 		`git log -1 --format=format:%ai #{tag}`
@@ -39,6 +54,12 @@ class Git
 	# Todo: Armor this against code injection!
 	def self.get_filtered_messages(from_commit, to_commit, filter)
 		`git log #{from_commit}..#{to_commit} -E --grep='#{filter}' --format=%b`
+	end
+
+	# Retrieves one commit message and filters it
+	# Todo: Armor this against code injection!
+	def self.get_filtered_message(commit, filter)
+		`git log #{commit} -E --grep='#{filter}' --format=%b`
 	end
 
 	@@tags = nil

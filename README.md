@@ -1,4 +1,6 @@
-create-changelog
+[![Gem Version](https://badge.fury.io/rb/create_changelog.svg)](http://badge.fury.io/rb/create_changelog)
+
+create_changelog
 ================
 
 Ruby program with command-line interface that creates a changelog from
@@ -27,19 +29,25 @@ The reason why I chose to have special changelog lines rather than
 commit subjects is that commits are rather technical, but I want to have
 a changelog that can be read by 'normal' end users.
 
+create_changelog assumes that each tag in the repository represents a
+release version. The changelog for a version consists of the tag's name,
+the tag's annotation, and the unique combined, filtered changelog lines
+of the tag annotation and all commits since the previous tag.
+
 
 Usage
 -----
 
 ### Creating log entries
-When committing, add a line that fits the above definition to the commit
-message, e.g.
+
+When committing, add a line to the commit message that fits the above
+definition, e.g.
 
 	Implement Backup class.
 
 	- NEW: Ability to back up the files.
 
-Create annotated tags to identify new versions:
+When releasing a new version, create an annotated tag:
 
 	Version 7.0.0-alpha.3
 
@@ -63,38 +71,41 @@ changelog entries.
 To generate a complete change log, simply run the tool in the directory
 of the git repository, or indicate a working directory:
 
-	ccl.rb -d /home/me/my/repository
+	ccl -d /home/me/my/repository
 
 The output will be in markdown format. If you wish, you can further
 process it using tools like [pandoc][] for example. Of course, it is
 also possible to incorporate the command in the content files for a
 static site generator such as [nanoc][].
 
-If you want to track your log in the git repository, you probably will
-not yet have an annotated tag for the version you are preparing. In this
-case, the tool will use "Unpublished changes" as the heading for the
-latest changes. To use the version number that you are about to use in
-the tag, call the tool with an optional argument:
+If you want to track your log in the git repository, you will not yet
+have an annotated tag for the version you are preparing at the time when
+you generate the changelog. In this case, the tool will use "Unpublished
+changes" as the heading for the latest changes. To rather use the
+version number that you are about to use in the tag, execute the tool
+with an optional argument:
 
-	ccl.rb 7.0.0-alpha.4
+	ccl "Version 7.0.0-alpha.4"
+
+You then use this same version number for your release tag.
 
 Be aware that currently, the date of the most recent commit (that HEAD
 points to) will be appended to the heading.
 
 To exclude recent changes that were logged since the last tag:
 
-	ccl.rb --no-recent
-	ccl.rb -n
+	ccl --no-recent
+	ccl -n
 
 To just see the (undecorated) changelog entries since the last tag, use:
 
-	ccl.rb --recent
-	ccl.rb -r
+	ccl --recent
+	ccl -r
 
 This can be handy if you want to add a log of recent changes to your tag
 annotation. For example, using the Vim text editor, issue:
 
-	:r!ccl.rb -r
+	:r!ccl -r
 
 The tool will make sure that no changelog lines are duplicated.
 
@@ -103,8 +114,17 @@ Changelog format
 ----------------
 
 The changelog format resembles the [suggestions][kacl] made by Olivier
-Lacan. I have not yet have the time to implement automatic generation of
-subheadings. Maybe I'll add the feature in the future.
+Lacan, but it does not fully comply with Olivier's specification. I have
+not yet have the time to implement automatic generation of subheadings.
+Maybe I'll add the feature in the future.
+
+
+To do
+-----
+
+- Add automatic subheadings
+- Add ability to handle multi-line change log entries
+- Add to-do list feature
 
 
 Live example
@@ -118,11 +138,8 @@ Live example
 Code
 ----
 
-To understand the code, you can run `rdoc` in the repository's
-directory. The resulting `doc` subdirectory will be ignored by Git.
-
-Alternatively, you may browse
-<http://www.rubydoc.info/github/bovender/create-changelog>.
+The code is documented in [Yard][] style. The `doc` subdirectory is
+git-ignored so you can safely generate the docs.
 
 
 License
@@ -148,5 +165,6 @@ License
 [nanoc]: http://nanoc.ws
 [kacl]: http://keepachangelog.com
 [CHANGELOG.md]: CHANGELOG.md
+[Yard]: http://www.rubydoc.info/gems/yard
 
 <!-- vim: set tw=72 : -->

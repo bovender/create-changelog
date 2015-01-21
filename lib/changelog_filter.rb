@@ -30,10 +30,11 @@ class ChangelogFilter
 			fail "Must call this factory with Array, not " + ary.class.to_s
 		end
 		filter = ChangelogFilter.new
-		log, filter.other_text = ary.partition do |line|
+		log, text = ary.partition do |line|
 			line.match(pattern)
 		end
 		filter.changelog = log.uniq.sort.remove_indent if log.length > 0
+		filter.other_text = text if text.length > 0
 		filter
 	end
 

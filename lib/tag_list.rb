@@ -24,8 +24,10 @@ class TagList
 	attr_reader :list
 
 	# Instantiates the tag list.
-	# include_head indicates whether or not to include
-	# the most recent changes
+	#
+	# @param [bool] include_head
+	#   Indicates whether or not to include the most recent changes.
+	#
 	def initialize(include_head = true)
 		@include_head = include_head
 		@list = build_list
@@ -33,6 +35,9 @@ class TagList
 
 	# Returns the most recent tag in the git repository,
 	# or the sha1 of the initial commit if there is no tag.
+	#
+	# @return [String]
+	#
 	def latest_tag
 		# Index 0 is HEAD
 		# Index 1 is most recent tag or first commit
@@ -46,10 +51,16 @@ class TagList
 	# of the repository. Usually there should be not more than
 	# one such commit.
 	# See http://stackoverflow.com/a/1007545/270712
+	#
 	def get_initial_commit
 		`git rev-list --max-parents=0 HEAD`.chomp
 	end
 
+	# Builds a list of Git tags and encloses it with HEAD and the
+	# Sha-1 of the initial commit.
+	#
+	# @return [Array]
+	#   Array of tags, surrounded by HEAD and the Sha-1 of the initial commit.
 	def build_list
 		tags = []
 		tags <<  get_initial_commit

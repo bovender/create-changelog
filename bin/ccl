@@ -19,54 +19,54 @@
 # The filtered lines are sorted and written to standard out.
 
 require 'optparse'
-require_relative '../lib/create_changelog.rb'
+require_relative '../lib/changelog.rb'
 require_relative '../lib/git.rb'
 require_relative '../lib/version.rb'
 
-def main
-	options = {}
-	working_dir = Dir.pwd
-	option_parser = OptionParser.new do |opts|
-		exe_name = File.basename($PROGRAM_NAME)
-		opts.banner = "create_changelog version #{CreateChangelog::VERSION}\n"
-		opts.banner += "Creates changelog from log entries in git log\n"
-		opts.banner += "Usage: #{exe_name} [options] [current_version]"
-		opts.on("-r", "--recent",
-						"Include only most recent changes") do 
-			options[:only_recent] = true
-		end
-		opts.on("-n", "--no-recent",
-						"Exclude the most recent changes (from untagged commits)") do 
-			options[:no_recent] = true
-		end
-		opts.on("-d WORKING_DIR", "--dir WORKING_DIR",
-					 "Use alternate working directory") do |dir|
-			working_dir = dir
-		end
-		opts.on("-v", "--version", "Print version information and exit.") do
-			puts CreateChangelog::VERSION
-			exit
-		end
+options = {}
+working_dir = Dir.pwd
+option_parser = OptionParser.new do |opts|
+	exe_name = File.basename($PROGRAM_NAME)
+	opts.banner = "create_changelog version #{CreateChangelog::VERSION}\n"
+	opts.banner += "Creates changelog from log entries in git log\n"
+	opts.banner += "Usage: #{exe_name} [options] [current_version]"
+	opts.on("-r", "--recent",
+					"Include only most recent changes") do 
+		options[:only_recent] = true
 	end
-	option_parser.parse!
-
-	if options[:no_recent] and options[:only_recent]
-			abort "FATAL: Cannot combine --recent and --no-recent"
+	opts.on("-n", "--no-recent",
+					"Exclude the most recent changes (from untagged commits)") do 
+		options[:no_recent] = true
 	end
+	opts.on("-d WORKING_DIR", "--dir WORKING_DIR",
+				 "Use alternate working directory") do |dir|
+		working_dir = dir
+	end
+	opts.on("-v", "--version", "Print version information and exit.") do
+		puts CreateChangelog::VERSION
+		exit
+	end
+end
+option_parser.parse!
 
-	Dir.chdir(working_dir) do
-		abort "FATAL: Not a git repository." unless Git.is_git_repository?
+if options[:no_recent] and options[:only_recent]
+		abort "FATAL: Cannot combine --recent and --no-recent"
+end
 
+Dir.chdir(working_dir) do
+	abort "FATAL: Not a git repository." unless Git.is_git_repository?
+
+	unless Git.is_empty_repository?
 		change_log = Changelog.new
 		change_log.recent_changes_heading = ARGV[0] unless ARGV.empty?
 		if options[:only_recent]
-			puts change_log.generate_recent
+			output = change_log.generate_recent
+			puts output if output
 		else
-			puts change_log.generate(options[:no_recent])
+			output = change_log.generate(options[:no_recent])
+			puts output.rstrip if output
 		end
 	end
 end
-
-main
 
 # vim: nospell
