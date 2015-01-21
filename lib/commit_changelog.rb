@@ -15,11 +15,22 @@ require_relative 'changelog_filter'
 
 # Filters commit messages for changelog entries.
 class CommitChangelog
+
 	# Contains changelog entries of the commits.
 	attr_reader :changelog
 
 	# Instantiates an object containing changelog entries between
 	# two git commits.
+	#
+	# @param [String] to_commit
+	#	  Most recent commit whose changelog lines to include.
+	#
+	#	@param [String] from_commit
+	#	  Earlier commit whose changelog lines will _not_ be included.
+	#
+	#	@return [Array]
+	#	  Array of changelog lines, or nil if none were found.
+	#
 	def initialize(to_commit, from_commit)
 		pattern = ChangelogFilter.pattern
 		messages = Git.get_filtered_messages(from_commit, to_commit, pattern)
@@ -27,7 +38,15 @@ class CommitChangelog
 		@changelog = filter.changelog
 	end
 
-	# Adds changelog information contained in a specific commit message.
+	# Adds changelog information contained in a specific commit message. This
+	# method is typically used to parse the initial commit's commit message.
+	#
+	# @param [String] commit
+	#   Sha-1 of the commit whose commit message to filter for changelog lines.
+	#
+	# @return
+	#   Undefined
+	#
 	def add_commit(commit)
 		pattern = ChangelogFilter.pattern
 		filtered_text = Git.get_filtered_message(commit, pattern)

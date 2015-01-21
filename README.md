@@ -138,11 +138,8 @@ Live example
 Code
 ----
 
-To understand the code, you can run `rdoc` in the repository's
-directory. The resulting `doc` subdirectory will be ignored by Git.
-
-Alternatively, you may browse
-<http://www.rubydoc.info/github/bovender/create-changelog>.
+The code is documented in [Yard][] style. The `doc` subdirectory is
+git-ignored so you can safely generate the docs.
 
 
 License
@@ -168,5 +165,6 @@ License
 [nanoc]: http://nanoc.ws
 [kacl]: http://keepachangelog.com
 [CHANGELOG.md]: CHANGELOG.md
+[Yard]: http://www.rubydoc.info/gems/yard
 
 <!-- vim: set tw=72 : -->

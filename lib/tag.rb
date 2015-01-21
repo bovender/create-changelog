@@ -15,7 +15,7 @@ require 'date'
 require_relative 'git'
 require_relative 'changelog_filter'
 
-# Represents a git tag and its annotation.
+# Represents a Git tag and its annotation.
 class Tag
 	# The heading of the tag annotation.
 	attr_accessor :heading
@@ -30,10 +30,9 @@ class Tag
 	attr_reader :date
 
 	# Gets change information for a specific tagged version.
-	# This will prepend the summary for the annotated tag before
-	# the list of changes. If the tag annotation contains changelog
-	# entries, they are merged with the changelog entries filtered
-	# from the commit messages, and only unique entries are used.
+	#
+	# @param [String] tag
+	#   Tag for which to instantiate the class.
 	def initialize(tag)
 		annotation = Git.get_tag_annotation(tag)
 		@date = Date.parse(Git.get_tag_date(tag))
