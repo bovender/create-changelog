@@ -27,9 +27,25 @@ Scenario: Changelog lines in commit messages and tag with different changelog li
 	And I successfully run `ccl`
 	Then the stdout should contain 4 lines starting with "- "
 
-Scenario: Changelog lines in commit messages and tag with same hangelog line
+Scenario: Changelog lines in commit messages and tag with same changelog line
 	Given an empty Git repository
 	When 3 commits with standard changelog line are added
 	And a tag with standard changelog line is added
 	And I successfully run `ccl`
 	Then the stdout should contain 1 line starting with "- "
+
+Scenario: Unique changelog lines in commit messages, tag, and recent commits
+	Given an empty Git repository
+	When 3 commits with unique changelog line are added
+	And a tag with unique changelog line is added
+	And 2 commits with unique changelog line are added
+	And I successfully run `ccl`
+	Then the stdout should contain 6 lines starting with "- "
+
+Scenario: Same changelog lines in commit messages, tag, and recent commits
+	Given an empty Git repository
+	When 3 commits with standard changelog line are added
+	And a tag with standard changelog line is added
+	And 2 commits with standard changelog line are added
+	And I successfully run `ccl`
+	Then the stdout should contain 2 lines starting with "- "
