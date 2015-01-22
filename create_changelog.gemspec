@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
 		EOF
 	s.authors      = ["Daniel Kraus"]
 	s.email        = 'krada@gmx.net'
-	s.files        = Dir.glob("{bin,lib}/**/*") + %w(README.md CHANGELOG.md)
+	s.files        = Dir.glob("{bin,lib,test,features}/**/*") + %w(README.md CHANGELOG.md)
 	s.executables << 'ccl'
 	s.homepage     = "https://github.com/bovender/create-changelog"
 	s.license      = "Apache License version 2"
