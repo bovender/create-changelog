@@ -46,6 +46,54 @@ class Git
 		$? != 0
 	end
 
+	# Launches the text editor that Git uses for commit messages,
+	# and passes file as a command line argument to it.
+	#
+	# @see https://github.com/git/git/blob/master/editor.c
+	#   Git's editor.c on GitHub
+	#
+	# @param [String] file
+	#   Filename to pass to the editor.
+	#
+	# @return [int]
+	#		Exit code of the editor process, or false if no editor found.
+	#
+	def self.launch_editor(file)
+		# const char *editor = getenv("GIT_EDITOR");
+		editor = ENV['GIT_EDITOR']
+
+		# const char *terminal = getenv("TERM");
+		terminal = ENV['TERM'];
+
+		# int terminal_is_dumb = !terminal || !strcmp(terminal, "dumb");
+		terminal_is_dumb = !terminal || terminal == 'dumb'
+
+		# if (!editor && editor_program)
+		editor = `git config --get core.editor`.rstrip if editor.nil? || editor.empty?
+
+		# if (!editor && !terminal_is_dumb)
+		#		editor = getenv("VISUAL");
+		editor = ENV['VISUAL'] if (editor.nil? || editor.empty?) && !terminal_is_dumb
+
+		# if (!editor)
+		# 	editor = getenv("EDITOR");
+		editor = ENV['EDITOR'] if (editor.nil? || editor.empty?)
+
+		# if (!editor && terminal_is_dumb)
+		# 	return NULL;
+		# if (!editor)
+		# 	editor = DEFAULT_EDITOR;
+		# Use vi, Git's hard-coded default
+		editor = 'vi' if (editor.nil? || editor.empty?) && !terminal_is_dumb
+
+		if editor && !editor.empty?
+			system "#{editor} '#{file}'"
+			$?
+		else
+			false
+		end
+	end
+
 	# Retrieves the first 99 lines of the annotation of a tag.
 	#
 	def self.get_tag_annotation(tag)
