@@ -23,6 +23,10 @@ require_relative '../lib/changelog.rb'
 require_relative '../lib/git.rb'
 require_relative '../lib/version.rb'
 
+if !Git.is_installed?
+	abort("FATAL: Git is not installed or cannot be executed.")
+end
+
 options = {}
 working_dir = Dir.pwd
 option_parser = OptionParser.new do |opts|

@@ -16,6 +16,16 @@ require_relative 'tag_list'
 # A static wrapper class for git
 class Git
 
+	# Determines whether Git is installed
+	#
+	# @return [bool]
+	#   True if Git is installed, false if not.
+	#
+	def self.is_installed?
+		`git --version`
+		$? == 0
+	end
+
 	# Determines whether the (current) directory is a git repository
 	#
 	# @param [String] dir
