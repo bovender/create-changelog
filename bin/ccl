@@ -27,9 +27,12 @@ options = {}
 working_dir = Dir.pwd
 option_parser = OptionParser.new do |opts|
 	exe_name = File.basename($PROGRAM_NAME)
-	opts.banner = "create_changelog version #{CreateChangelog::VERSION}\n"
-	opts.banner += "Creates changelog from log entries in git log\n"
-	opts.banner += "Usage: #{exe_name} [options] [current_version]"
+	opts.banner = <<EOF
+create_changelog version #{CreateChangelog::VERSION} - <https://github.com/bovender/create-changelog>
+(c) Copyright 2015 Daniel Kraus - distriuted under Apache License Version 2.0
+Creates changelog from log entries in git log\n
+Usage: #{exe_name} [options] [current_version]
+EOF
 	opts.on("-r", "--recent",
 					"Include only most recent changes") do 
 		options[:only_recent] = true
