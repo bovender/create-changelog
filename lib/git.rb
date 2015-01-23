@@ -46,6 +46,14 @@ class Git
 		$? != 0
 	end
 
+	# Retrieves the name of the current branch.
+	#
+	# @return [String]
+	#   Current branch.
+	def self.current_branch
+		`git branch`.rstrip
+	end
+
 	# Launches the text editor that Git uses for commit messages,
 	# and passes file as a command line argument to it.
 	#
