@@ -1,0 +1,68 @@
+ccl(1) -- create changelogs from special log lines in Git commit messages
+=========================================================================
+
+## SYNOPSIS
+
+`ccl` [<recent_changes_heading>]  
+`ccl` `-r`|`--recent`  
+`ccl` `-n`|`--no-recent`  
+`ccl` `-v`  
+`ccl` `-h`
+
+## DESCRIPTION
+
+`ccl` (**create_changelog**) collects special changelog lines from Git
+commit messages and compiles a changelog that is friendly to end users.
+
+The idea is that many commits are rather technical. Only certain commits
+introduce changes that affect the end user experience. These may be
+annotated with special changelog lines in the form of:
+
+        - KEYWORD: DESCRIPTION
+
+where both `KEYWORD` and `DESCRIPTION` can be arbitrarily chosen, e.g.:
+
+        - NEW: The long-awaited new feature was added now.
+        - FIX: Several minor bug fixes.
+
+`ccl` assumes that release versions are marked with annotated tags. The
+tag annotation may contain changelog lines, they will be combined with
+the changelog lines that were committed since the previous tag.
+
+The compiled changelog is written in _Markdown_ format to `stdout`, but
+may of course be redirected to a file.
+
+
+## OPTIONS
+
+* <recent_changes_heading>:
+  Heading to use for the most recent changes (committed since the last
+  tag). By default, `ccl` uses the heading "Unpublished changes". - For
+  previous versions of the software, the subject lines of the annotated
+  tags are used as headings.
+
+* `-n`, `--no-recent`:
+  Omit recent changes (committed since the last tag).
+
+* `-r`, `--recent`:
+  Produce undecorated log of most recent changes only (committed since
+  the last tag).
+
+* `-v`:
+  Display the current version, and exit.
+
+* `-h`:
+  Display concise help, and exit.
+
+
+## COPYRIGHT
+
+Daniel Kraus (<http://github.com/bovender>) 2015
+
+
+## LICENSE
+
+Apache License Version 2.0
+(<http://www.apache.org/licenses/LICENSE-2.0>)
+
+<!-- vim: set ft=markdown tw=72 fo+=t : -->
