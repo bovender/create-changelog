@@ -21,6 +21,8 @@ Gem::Specification.new do |s|
 #{s.name} version #{s.version} has been installed.
 For usage information, type #{s.executables[0]} -h
 EOF
+  s.add_dependency('gem-man', '~> 0.3')
+  s.add_development_dependency('ronn', '~> 0.7')
 	s.add_development_dependency('aruba', '~> 0.6.2')
 	s.add_development_dependency('yard', '~> 0.8.7')
 end
