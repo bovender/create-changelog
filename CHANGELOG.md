@@ -1,5 +1,26 @@
+Version 1.3.2 (2015-06-24)
+========================================================================
+
+- FIX: Properly sort and identify latest tags (tags are sorted as version numbers).
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+
+
+Version 1.3.1 (2015-06-24)
+========================================================================
+
+- CHANGED: Added author and license information to program banner.
+- FIX: Do not crash on --no-recent if there aren't indeed recent changes.
+- NEW: Check if Git is installed and issue error message if it isn't.
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+
+
 Version 1.3.0 (2015-01-21)
 ========================================================================
+
+Version 1.3.0 adds a test suite that enables quality control during
+development, and fixes a number of bugs that appeared during testing.
 
 - CHANGE: Omit empty lines at end of changelog.
 - FIX: Do not crash if Git repository is empty.
