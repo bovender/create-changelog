@@ -64,7 +64,7 @@ class TagList
 	def build_list
 		tags = []
 		tags <<  get_initial_commit
-		tags += `git tag`.split("\n").map { |s| s.rstrip }
+		tags += `git tag --sort v:refname`.split("\n").map { |s| s.rstrip }
 		tags << "HEAD" if @include_head
 		tags.reverse
 	end
