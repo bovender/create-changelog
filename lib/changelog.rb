@@ -93,7 +93,11 @@ class Changelog
 
 		# Combine changelog entries from tag annotation and commit messages
 		if tag.changelog
-			combined_changelog = tag.changelog.concat(commit_changelog.changelog)
+      if commit_changelog.changelog
+        combined_changelog = tag.changelog.concat(commit_changelog.changelog)
+      else
+        combined_changelog = tag.changelog
+      end
 		else
 			combined_changelog = commit_changelog.changelog
 		end
