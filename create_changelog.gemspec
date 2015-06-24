@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
 		EOF
 	s.authors      = ["Daniel Kraus"]
 	s.email        = 'krada@gmx.net'
-	s.files        = Dir.glob("{bin,lib}/**/*") + %w(README.md CHANGELOG.md)
+	s.files        = Dir.glob("{bin,lib,test,features}/**/*") + %w(README.md CHANGELOG.md)
 	s.executables << 'ccl'
 	s.homepage     = "https://github.com/bovender/create-changelog"
 	s.license      = "Apache License version 2"
@@ -21,7 +21,10 @@ Gem::Specification.new do |s|
 #{s.name} version #{s.version} has been installed.
 For usage information, type #{s.executables[0]} -h
 EOF
-	s.add_development_dependency('aruba')
+  s.add_dependency('gem-man', '~> 0.3')
+  s.add_development_dependency('ronn', '~> 0.7')
+	s.add_development_dependency('aruba', '~> 0.6.2')
+	s.add_development_dependency('yard', '~> 0.8.7')
 end
 
 # vim: nospell

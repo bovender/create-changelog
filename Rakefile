@@ -1,6 +1,9 @@
 require 'rake/testtask'
 require 'cucumber'
 require 'cucumber/rake/task'
+require 'yard'
+
+YARD::Rake::YardocTask.new
 
 Rake::TestTask.new do |t|
 	t.libs << 'test'

@@ -5,3 +5,5 @@ doc/
 *.gem
 tmp/
 .yardoc/
+man/*.1
+man/*.html
