@@ -1,0 +1,23 @@
+create-changelog (1.3.4-0ubuntu1) vivid; urgency=low
+
+  * Fix package installation (symlink to /usr/bin/ccl was missing).
+
+ -- Daniel Kraus <bovender@bovender.de>  Sun, 4 Oct 2015 12:26:29 +0200
+
+create-changelog (1.3.4) vivid; urgency=low
+
+  * Fix PPA packaging again.
+
+ -- Daniel Kraus <bovender@bovender.de>  Sun, 4 Oct 2015 07:26:29 +0200
+
+create-changelog (1.3.3) vivid; urgency=low
+
+  * Fix PPA packaging.
+
+ -- Daniel Kraus <bovender@bovender.de>  Sun, 4 Oct 2015 07:16:29 +0200
+
+create-changelog (1.3.2) vivid; urgency=low
+
+  * Initial Release as Ubuntu package.
+
+ -- Daniel Kraus <bovender@bovender.de>  Sun, 4 Oct 2015 06:56:29 +0200

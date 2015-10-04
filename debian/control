@@ -1,0 +1,14 @@
+Source: create-changelog
+Section: devel
+Priority: optional
+Maintainer: Daniel Kraus <bovender@bovender.de>
+Build-Depends: debhelper (>= 9~), ruby, gem2deb, pandoc
+Standards-Version: 3.9.6
+Homepage: https://github.com/bovender/create-changelog
+
+Package: create-changelog
+Architecture: all
+Depends: git, ${ruby:Depends}, ${misc:Depends}
+X-Ruby-Version: >= 2.0
+Description: Builds an end-user-friendly changelog from Git commit messages.
+
