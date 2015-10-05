@@ -1,7 +1,7 @@
 #/bin/sh
 
 if [ $# -lt 2 ]; then
-        echo "== Generate manpage for indicator-ip =="
+        echo "== Generate manpage for create-changelog =="
         echo "Usage: $(basename $0) INFILE OUTFILE."
         echo "Where INFILE is the readme file in markdown format"
         echo "and OUTFILE is the target output file."
@@ -11,20 +11,19 @@ fi
 TEMPFILE="${2}.tmp"
 
 tee > "$TEMPFILE" <<'EOF'
-%INDICATOR-IP(1)
+%CCL(1)
 
 # NAME
 
-indicator-ip - Display local and public IP addresses as indicator.
+ccl - _C_reate end-user-friendly _c_hange _l_ogs from Git commit messages.
 
 # SYNOPSIS
 
-**indicator-ip** [**-i**|**--interface** *INTERFACE*] [**-u**|**--fetch-ip-url** *URL*]  
-**indicator-ip** **--autostart**  
-**indicator-ip** **--no-autostart**  
-**indicator-ip** **-v**|**-vv|-vvv**  
-**indicator-ip** **-V**|**--version**  
-**indicator-ip** **-h**|**--help**  
+**ccl** ["Heading for most recent changes without Git tag"] [**-d** WORKING_DIRECTORY]  
+**ccl** **-r**|**--only-recent**  
+**ccl** **-n**|**--no-recent**  
+**ccl** **-h**|**--help**  
+**ccl** **-v**|**--version**  
 
 # DESCRIPTION
 EOF

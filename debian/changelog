@@ -1,3 +1,9 @@
+create-changelog (1.3.4-0ubuntu2) vivid; urgency=low
+
+  * Fix package installation (symlink to /usr/bin/ccl was missing).
+
+ -- Daniel Kraus <bovender@bovender.de>  Mon, 5 Oct 2015 06:15:00 +0200
+
 create-changelog (1.3.4-0ubuntu1) vivid; urgency=low
 
   * Fix package installation (symlink to /usr/bin/ccl was missing).
