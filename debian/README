@@ -1,0 +1,7 @@
+create-changelog
+----------------------------
+
+Ruby script that produces end-user-friendly changelogs from Git commit
+messages.
+
+ -- Daniel Kraus <bovender@bovender.de>  Sat, 03 Oct 2015 16:56:29 +0200
