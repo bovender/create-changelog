@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
 		lines in a git repository that can be read and understood by end users.
 		EOF
 	s.authors      = ["Daniel Kraus"]
-	s.email        = 'krada@gmx.net'
+	s.email        = 'bovender@bovender.de'
 	s.files        = Dir.glob("{bin,lib,test,features}/**/*") + %w(README.md CHANGELOG.md)
 	s.executables << 'ccl'
 	s.homepage     = "https://github.com/bovender/create-changelog"
