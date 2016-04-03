@@ -106,7 +106,7 @@ class Git
 	#
 	def self.get_tag_annotation(tag)
 		test_tag tag
-		`git tag -l -n99 #{tag}`.rstrip
+		`git tag --sort refname -l -n99 #{tag}`.rstrip
 	end
 
 	# Retrieves the author date of a tag
