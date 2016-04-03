@@ -10,5 +10,7 @@ Package: create-changelog
 Architecture: all
 Depends: git, ${ruby:Depends}, ${misc:Depends}
 X-Ruby-Version: >= 2.0
-Description: Builds an end-user-friendly changelog from Git commit messages.
+Description: create-changelog
+        Builds an end-user-friendly changelog from specially tagged lines in
+        Git commit messages.
 

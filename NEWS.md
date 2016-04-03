@@ -1,5 +1,22 @@
+Version 1.4.0 (2016-04-03)
+------------------------------------------------------------------------
+
+- CHANGED: Output uses second-level rather than first-level headings now.
+- FIX: Prevent Git error message due to local .gitconfig configuration.
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+
+
+Version 1.3.4 (2015-10-05)
+------------------------------------------------------------------------
+
+- NEW: Create Ubuntu package (ppa:bovender/bovender)
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+
+
 Version 1.3.2 (2015-06-24)
-========================================================================
+------------------------------------------------------------------------
 
 - FIX: Properly sort and identify latest tags (tags are sorted as version numbers).
 
@@ -7,7 +24,7 @@ Version 1.3.2 (2015-06-24)
 
 
 Version 1.3.1 (2015-06-24)
-========================================================================
+------------------------------------------------------------------------
 
 - CHANGED: Added author and license information to program banner.
 - FIX: Do not crash on --no-recent if there aren't indeed recent changes.
@@ -17,7 +34,7 @@ Version 1.3.1 (2015-06-24)
 
 
 Version 1.3.0 (2015-01-21)
-========================================================================
+------------------------------------------------------------------------
 
 Version 1.3.0 adds a test suite that enables quality control during
 development, and fixes a number of bugs that appeared during testing.
@@ -33,7 +50,7 @@ development, and fixes a number of bugs that appeared during testing.
 
 
 Version 1.2.0 (2015-01-18)
-========================================================================
+------------------------------------------------------------------------
 
 - FIX: Make "-r", "--recent" option actually work.
 - FIX: Prevent combining -n and -r switch irrespective of order.
@@ -43,7 +60,7 @@ Version 1.2.0 (2015-01-18)
 
 
 Version 1.1.0 (2015-01-18)
-========================================================================
+------------------------------------------------------------------------
 
 - CHANGED: Accept dashes in addition to asterisks in changelog lines.
 - NEW: Create gem.
@@ -52,7 +69,7 @@ Version 1.1.0 (2015-01-18)
 
 
 Version 1.0.0 (2015-01-18)
-========================================================================
+------------------------------------------------------------------------
 
 
 
