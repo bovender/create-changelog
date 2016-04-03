@@ -1,3 +1,9 @@
+create-changelog (1.4.1) wily; urgency=low
+
+  * Change heading format and prevent Git error.
+
+ -- Daniel Kraus <bovender@bovender.de>  Sun, 3 Apr 2016 10:15:00 +0200
+
 create-changelog (1.3.4-0ubuntu2) vivid; urgency=low
 
   * Fix package installation (symlink to /usr/bin/ccl was missing).
