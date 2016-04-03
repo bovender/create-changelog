@@ -107,7 +107,7 @@ class Changelog
 		tag.heading = @recent_changes_heading unless tag.heading
 		if tag.heading and (tag.text or combined_changelog)
 			output << tag.heading + " (#{tag.date})\n"
-			output << "=" * 72 + "\n"
+			output << "-" * 72 + "\n"
 		end
 		output << tag.text.join("\n") if tag.text
 		output << "\n" if tag.heading or tag.text
