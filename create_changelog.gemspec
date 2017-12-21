@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
 	s.files        = Dir.glob("{bin,lib,test,features}/**/*") + %w(README.md NEWS.md)
 	s.executables << 'ccl'
 	s.homepage     = "https://github.com/bovender/create-changelog"
-	s.license      = "Apache License version 2"
+  s.license      = "Apache-2.0"
 	s.platform     = Gem::Platform::RUBY
 	s.post_install_message = <<EOF
 #{s.name} version #{s.version} has been installed.
