@@ -1,3 +1,4 @@
+[![Beerpay](https://beerpay.io/bovender/create-changelog/badge.svg?style=flat-square)](https://beerpay.io/bovender/create-changelog)
 [![Gem Version](https://badge.fury.io/rb/create_changelog.svg)](http://badge.fury.io/rb/create_changelog)
 
 create-changelog
