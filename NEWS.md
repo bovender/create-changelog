@@ -1,3 +1,19 @@
+Version 1.4.2 (2017-12-21)
+------------------------------------------------------------------------
+
+- Improved: Updated third-party components including the source code documentation component, yard, thereby fixing SECURITY VULNERABILITY CVE-2017-17042. Note that this does not affect normal operation of the tool.
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+
+
+Version 1.4.1 (2016-04-03)
+------------------------------------------------------------------------
+
+- Fix Debian packaging.
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+
+
 Version 1.4.0 (2016-04-03)
 ------------------------------------------------------------------------
 
