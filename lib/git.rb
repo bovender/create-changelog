@@ -22,8 +22,12 @@ class Git
 	#   True if Git is installed, false if not.
 	#
 	def self.is_installed?
-		`git --version`
-		$? == 0
+		begin
+			`git --version`
+			true
+		rescue
+			false
+		end
 	end
 
 	# Determines whether the (current) directory is a git repository
